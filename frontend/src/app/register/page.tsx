@@ -13,6 +13,7 @@ export default function RegisterPage() {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors, isSubmitting },
   } = useForm<RegisterFormData>({
     resolver: zodResolver(RegisterSchema),
@@ -20,10 +21,24 @@ export default function RegisterPage() {
 
   const onSubmit = async (data: RegisterFormData) => {
     try {
-      console.log("Dữ liệu gửi đi: ", data);
-      axios.post(API_ENDPOINTS.users.register(), data);
+      const response = await axios.post(API_ENDPOINTS.users.register(), data);
+      alert("Đăng ký thành công! Chào mừng " + response.data.data.name);
     } catch (error) {
-      console.log("Lỗi: ", error);
+      console.log("Lỗi đăng ký: ", error);
+      if (axios.isAxiosError(error) && error.response) {
+        const serverMessage = error.response.data.error;
+
+        if (serverMessage === "User already exists") {
+          setError("email", {
+            type: "manual",
+            message: "Email đã tồn tại",
+          });
+        } else {
+          alert("Lỗi đăng ký: " + serverMessage);
+        }
+      } else {
+        alert("Có lỗi xảy ra, vui lòng thử lại sau!");
+      }
     }
   };
 
@@ -44,7 +59,7 @@ export default function RegisterPage() {
               type="text"
               {...register("name")}
               placeholder="Nhập tên của bạn"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900"
             />
             {errors.name && (
               <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>
@@ -60,7 +75,7 @@ export default function RegisterPage() {
               type="text"
               {...register("email")}
               placeholder="Nhập email của bạn"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900"
             />
             {errors.email && (
               <p className="text-red-500 text-xs mt-1">
@@ -78,7 +93,7 @@ export default function RegisterPage() {
               type="text"
               {...register("password")}
               placeholder="Nhập mật khẩu của bạn"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900"
             />
             {errors.password && (
               <p className="text-red-500 text-xs mt-1">

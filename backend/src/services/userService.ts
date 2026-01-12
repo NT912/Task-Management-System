@@ -21,10 +21,10 @@ export const userService = {
       name: rawData.name,
       email: rawData.email,
       password: hashedPassword,
-      displayName: rawData.displayName,
-      phone: rawData.phone,
     };
 
-    return await userRepository.createUser(newUser);
+    const createUser = await userRepository.createUser(newUser);
+    const {password, ...userWithoutPassword} = createUser;
+    return userWithoutPassword;
   },
 };
