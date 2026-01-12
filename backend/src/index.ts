@@ -3,7 +3,8 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import userRouter from "./routes/userRoute.js";
 import dotenv from "dotenv";
-dotenv.config();
+import path from "path";
+dotenv.config({ path: path.join(process.cwd(), "src/config/env/.env.dev") });
 
 const app = new Hono();
 

@@ -19,6 +19,6 @@ const buildUrl = (path: string, queryParams?: QueryParams): string => {
 export const API_ENDPOINTS = {
   users: {
     register: () => buildUrl("/users/register"),
-    // login: () => buildUrl("/users/login"),  <-- Sau này thêm tiếp
+    login: () => buildUrl("/users/login"),
   },
 };

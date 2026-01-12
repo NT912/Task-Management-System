@@ -1,6 +1,7 @@
 import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
-dotenv.config();
+import path from 'path';
+dotenv.config({ path: path.join(process.cwd(), "src/config/env/.env.dev") });
 
 // Tạo một "Pool" kết nối để tối ưu hiệu suất (tái sử dụng các kết nối thay vì tạo mới liên tục)
 export const pool = mysql.createPool({
