@@ -1,8 +1,21 @@
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import userRouter from "./routes/userRoute.js";
 
 const app = new Hono();
+
+app.use(
+  "/*",
+  cors({
+    origin: "http://localhost:3001",
+    allowHeaders: ["Content-Type", "Authorization"],
+    allowMethods: ["POST", "GET", "OPTIONS"],
+    exposeHeaders: ["Content-Length"],
+    maxAge: 600,
+    credentials: true,
+  })
+);
 
 app.route("/api/users", userRouter);
 
