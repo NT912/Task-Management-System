@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "NodeNext",
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": ["../shared/*"],
+      "@repositories/*": ["./src/repositories/*"],
+      "@services/*": ["./src/services/*"],
+      "@app-types/*": ["./src/types/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@controllers/*": ["./src/controllers/*"],
+      "@routes/*": ["./src/routes/*"]
+    },
+    "strict": true,
+    "verbatimModuleSyntax": true,
+    "skipLibCheck": true,
+    "types": ["node"],
+    "jsx": "react-jsx",
+    "jsxImportSource": "hono/jsx",
+    "outDir": "./dist"
+  },
+  "exclude": ["node_modules"]
+}

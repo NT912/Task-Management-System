@@ -1,0 +1,9 @@
+{
+  "name": "@project/shared",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./schemas.ts",
+  "dependencies": {
+    "zod": "^3.24.1"
+  }
+}
