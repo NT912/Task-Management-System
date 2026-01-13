@@ -9,6 +9,7 @@ import { API_ENDPOINTS } from "@/lib/api";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import z from "zod";
+import { toast } from "sonner";
 
 type LoginFormData = z.infer<typeof LoginSchema>;
 
@@ -30,8 +31,7 @@ export default function LoginPage() {
 
       const { token } = response.data.data;
       localStorage.setItem("token", token);
-
-      alert("Login Successful");
+      toast.success("Login Successful")
       router.push("/");
     } catch (error) {
       if (axios.isAxiosError(error)) {

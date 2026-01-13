@@ -8,10 +8,13 @@ import { API_ENDPOINTS } from "@/lib/api";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import axios from "axios";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 type RegisterFormData = z.infer<typeof RegisterSchema>;
 
 export default function RegisterPage() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -24,7 +27,10 @@ export default function RegisterPage() {
   const onSubmit = async (data: RegisterFormData) => {
     try {
       const response = await axios.post(API_ENDPOINTS.users.register(), data);
-      alert("Registration successful! Welcome " + response.data.data.name);
+      toast.success(
+        `Welcome ${response.data.data.name}! Registration successful.`
+      );
+      router.push("/login");
     } catch (error) {
       console.log("Registration failed: ", error);
       if (axios.isAxiosError(error) && error.response) {
@@ -81,11 +87,7 @@ export default function RegisterPage() {
 
           {/* --- Button Submit --- */}
           <div className="flex justify-end">
-            <Button
-              type="submit"
-              isLoading={isSubmitting}
-              className="w-auto"
-            >
+            <Button type="submit" isLoading={isSubmitting} className="w-auto">
               {isSubmitting ? "Processing..." : "Register"}
             </Button>
           </div>
