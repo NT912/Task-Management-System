@@ -29,9 +29,13 @@ export default function LoginPage() {
     try {
       const response = await axios.post(API_ENDPOINTS.users.login(), data);
 
-      const { token } = response.data.data;
+      const { user, token } = response.data.data;
       localStorage.setItem("token", token);
-      toast.success("Login Successful")
+      localStorage.setItem("user", JSON.stringify(user));
+
+      window.dispatchEvent(new Event("storage"));
+
+      toast.success("Login Successful");
       router.push("/");
     } catch (error) {
       if (axios.isAxiosError(error)) {
