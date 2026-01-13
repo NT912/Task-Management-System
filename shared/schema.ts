@@ -1,12 +1,12 @@
 import { z } from "zod";
 
 export const RegisterSchema = z.object({
-  name: z.string().min(2, "Tên phải có ít nhất 2 ký tự"),
-  email: z.string().email("Email không hợp lệ"),
-  password: z.string().min(6, "Mật khẩu phải từ 6 ký tự trở lên"),
+  name: z.string().min(2, "Name must be at least 2 characters long."),
+  email: z.string().email("Invalid email address."),
+  password: z.string().min(6, "Password must be at least 6 characters long."),
 });
 
 export const LoginSchema = z.object({
-  email: z.string().email("Email không hợp lệ"),
-  password: z.string().min(6, "Mật khẩu phải từ 6 ký tự trở lên"),
+  email: z.string().email("Invalid email address."),
+  password: z.string().min(6, "Password must be at least 6 characters long."),
 });
