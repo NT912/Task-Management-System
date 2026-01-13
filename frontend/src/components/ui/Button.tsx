@@ -17,11 +17,11 @@ export const Button = ({
 }: ButtonProps) => {
   // Định nghĩa style cho từng loại variant
   const variants = {
-    primary: "bg-[#000c44] text-white hover:opacity-90 shadow-md rounded-full px-6",
-    secondary: "bg-gray-100 text-[#000c44] hover:bg-gray-200 rounded-full",
-    outline: "bg-transparent border border-[#000c44] text-[#000c44] hover:bg-[#000c44]/5 rounded-full px-6",
-    ghost: "bg-transparent text-[#000c44] hover:bg-gray-50 hover:text-black shadow-none border-none rounded-full px-6",
-    destructive: "bg-red-500 text-white hover:bg-red-600 rounded-md shadow-sm px-4", // Dùng nút vuông cho cảnh báo
+    primary: "bg-[#0071bc] text-white hover:bg-[#009245] shadow-md rounded-full px-6", // Blue -> Green hover
+    secondary: "bg-gray-100 text-[#0071bc] hover:bg-gray-200 rounded-full",
+    outline: "bg-transparent border border-[#0071bc] text-[#0071bc] hover:bg-[#0071bc]/5 rounded-full px-6",
+    ghost: "bg-transparent text-[#0071bc] hover:bg-gray-50 hover:text-[#009245] shadow-none border-none rounded-full px-6",
+    destructive: "bg-red-500 text-white hover:bg-red-600 rounded-md shadow-sm px-4",
   };
 
   return (

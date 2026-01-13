@@ -89,7 +89,7 @@ export default function LoginPage() {
           Not a member?{" "}
           <a
             href="/register"
-            className="font-semibold leading-6 text-[#f24855] hover:opacity-80"
+            className="font-semibold leading-6 text-[#009245] hover:opacity-80"
           >
             Register now
           </a>
