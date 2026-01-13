@@ -1,7 +1,11 @@
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import userRouter from "./routes/userRoute.js";
+import authRouter from "./routes/auth/authRoute.js";
+import userRouter from "./routes/user/userRoute.js";
+import dotenv from "dotenv";
+import path from "path";
+dotenv.config({ path: path.join(process.cwd(), "src/config/env/.env.dev") });
 
 const app = new Hono();
 
@@ -17,6 +21,8 @@ app.use(
   })
 );
 
+// Route Auth: /api/users/login, /api/users/register (Giữ nguyên prefix /api/users như cũ để đỡ sửa frontend nhiều)
+app.route("/api/users", authRouter);
 app.route("/api/users", userRouter);
 
 app.get("/", (c) => {
@@ -26,7 +32,7 @@ app.get("/", (c) => {
 serve(
   {
     fetch: app.fetch,
-    port: 3000,
+    port: Number(process.env.PORT),
   },
   (info) => {
     console.log(`Server is running on http://localhost:${info.port}`);

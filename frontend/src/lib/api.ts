@@ -1,4 +1,5 @@
-const API_BASE_URL = "http://localhost:3000/api";
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api";
 
 type QueryParams = Record<string, string | number | boolean | undefined | null>;
 
@@ -19,6 +20,6 @@ const buildUrl = (path: string, queryParams?: QueryParams): string => {
 export const API_ENDPOINTS = {
   users: {
     register: () => buildUrl("/users/register"),
-    // login: () => buildUrl("/users/login"),  <-- Sau này thêm tiếp
+    login: () => buildUrl("/users/login"),
   },
 };
