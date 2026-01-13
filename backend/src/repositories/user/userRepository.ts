@@ -16,4 +16,9 @@ export const userRepository = {
     );
     return rows[0];
   },
+
+  async updateAvatar(userId: string, avatarUrl: string): Promise<void> {
+    const query = `UPDATE users SET avatar_url = ? WHERE user_id = ?`;
+    await pool.execute(query, [avatarUrl, userId]);
+  },
 };

@@ -12,7 +12,8 @@
       "@controllers/*": ["./src/controllers/*"],
       "@routes/*": ["./src/routes/*"],
       "@config/*": ["./src/config/*"],
-      "@db/*": ["./src/db/*"]
+      "@db/*": ["./src/db/*"],
+      "@middleware/*": ["./src/middleware/*"]
     },
     "strict": true,
     "verbatimModuleSyntax": true,

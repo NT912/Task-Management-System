@@ -1,10 +1,9 @@
 import { Hono } from "hono";
 import { uploadAvatar } from "@controllers/user/userController.js";
+import { authMiddleware } from "@middleware/authMiddleware.js";
 
 const userRouter = new Hono();
 
-// API Upload Avatar
-// Sau này sẽ thêm middleware checkToken ở đây
-userRouter.post("/upload-avatar", uploadAvatar);
+userRouter.post("/upload-avatar", authMiddleware, uploadAvatar);
 
 export default userRouter;
