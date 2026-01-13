@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { userRepository } from "@repositories/userRepository.js";
+import { userRepository } from "@repositories/user/userRepository.js"; // Cập nhật đường dẫn repo
 import type { UserData } from "@app-types/user.js";
 import * as bcrypt from "bcrypt";
 import type { RegisterSchema, LoginSchema } from "@shared/schema.js";
@@ -10,7 +10,7 @@ import { email } from "zod/v4";
 type RegisterInput = z.infer<typeof RegisterSchema>;
 type LoginInput = z.infer<typeof LoginSchema>;
 
-export const userService = {
+export const authService = {
   async registerUser(rawData: RegisterInput) {
     const existingUser = await userRepository.findByEmail(rawData.email);
     if (existingUser) {

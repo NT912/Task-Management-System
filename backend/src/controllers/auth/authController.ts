@@ -1,6 +1,6 @@
 import type { RegisterSchema, LoginSchema } from "@shared/schema.js";
 import { z } from "zod";
-import { userService } from "@services/userService.js";
+import { authService } from "@services/auth/authService.js";
 import type { Context } from "hono";
 
 type RegisterEnv = {
@@ -26,7 +26,7 @@ export const registerUserController = async (
 ) => {
   try {
     const validateData = c.req.valid("json");
-    const result = await userService.registerUser(validateData);
+    const result = await authService.registerUser(validateData);
     return c.json({ message: "User created successfully", data: result }, 201);
   } catch (error: any) {
     const status = error.message === "User already exists" ? 400 : 500;
@@ -39,7 +39,7 @@ export const loginUserController = async (
 ) => {
   try {
     const validateData = c.req.valid("json");
-    const { user, token } = await userService.loginUser(validateData);
+    const { user, token } = await authService.loginUser(validateData);
     return c.json({ message: "Login Successful", data: { user, token } });
   } catch (error: any) {
     const status = error.message === "Invalid Username or Password" ? 401 : 500;
