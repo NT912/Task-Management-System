@@ -1,4 +1,4 @@
-import { pool } from "../db/index.js";
+import { pool } from "@db/index.js";
 import type { UserData } from "@app-types/user.js";
 
 export const userRepository = {

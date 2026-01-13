@@ -1,9 +1,12 @@
 import { RegisterSchema, LoginSchema } from "@shared/schema.js";
 import { Hono } from "hono";
-import { registerUserController, loginUserController } from "../controllers/userController.js";
+import {
+  registerUserController,
+  loginUserController,
+} from "@controllers/auth/authController.js";
 import { zValidator } from "@hono/zod-validator";
 
-const userRouter = new Hono();
+const authRouter = new Hono();
 
 const registerValidator = zValidator("json", RegisterSchema, (result, c) => {
   if (!result.success) {
@@ -18,7 +21,7 @@ const registerValidator = zValidator("json", RegisterSchema, (result, c) => {
   }
 });
 
-userRouter.post("/register", registerValidator, registerUserController);
+authRouter.post("/register", registerValidator, registerUserController);
 
 const loginValidator = zValidator("json", LoginSchema, (result, c) => {
   if (!result.success) {
@@ -33,6 +36,6 @@ const loginValidator = zValidator("json", LoginSchema, (result, c) => {
   }
 });
 
-userRouter.post("/login", loginValidator, loginUserController);
+authRouter.post("/login", loginValidator, loginUserController);
 
-export default userRouter;
+export default authRouter;
