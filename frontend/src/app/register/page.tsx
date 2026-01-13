@@ -80,14 +80,26 @@ export default function RegisterPage() {
           />
 
           {/* --- Button Submit --- */}
-          <Button
-            type="submit"
-            isLoading={isSubmitting}
-            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {isSubmitting ? "Processing..." : "Register"}
-          </Button>
+          <div className="flex justify-end">
+            <Button
+              type="submit"
+              isLoading={isSubmitting}
+              className="w-auto"
+            >
+              {isSubmitting ? "Processing..." : "Register"}
+            </Button>
+          </div>
         </form>
+
+        <p className="mt-10 text-center text-sm text-gray-500">
+          Already have an account?{" "}
+          <a
+            href="/login"
+            className="font-semibold leading-6 text-[#f24855] hover:opacity-80"
+          >
+            Login
+          </a>
+        </p>
       </div>
     </div>
   );
