@@ -5,11 +5,25 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
+import { UserNav } from "./UserNav";
+
+interface User {
+  name: string;
+  email: string;
+  avatar_url: string | null;
+}
 
 export default function Header() {
+  const [isMounted, setIsMounted] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsMounted(true), 0);
+    return () => clearTimeout(timer);
+  }, []);
 
   //check token
   useEffect(() => {
@@ -17,7 +31,17 @@ export default function Header() {
 
     const checkLogin = () => {
       const token = localStorage.getItem("token");
+      const userStr = localStorage.getItem("user");
       setIsLoggedIn(!!token); // có token -> true, không có -> false
+      if (userStr) {
+        try {
+          setUser(JSON.parse(userStr));
+        } catch {
+          setUser(null);
+        }
+      } else {
+        setUser(null);
+      }
     };
     checkLogin();
 
@@ -30,7 +54,9 @@ export default function Header() {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setIsLoggedIn(false);
+    setUser(null);
     router.push("/");
   };
 
@@ -55,18 +81,12 @@ export default function Header() {
 
         {/* MENU BÊN PHẢI */}
         <div className="flex gap-4 items-center">
-          {isLoggedIn ? (
+          {/* Chỉ hiển thị khi client đã load (chống nháy) */}
+          {!isMounted ? (
+            <div className="w-8 h-8 rounded-full bg-gray-100 animate-pulse"></div> // Skeleton cho cái avatar
+          ) : isLoggedIn && user ? (
             // Trạng thái đã login
-            <div className="flex gap-2">
-              <span>Hello!</span>
-              <Button
-                onClick={handleLogout}
-                variant="primary"
-                className="w-auto"
-              >
-                Logout
-              </Button>
-            </div>
+            <UserNav user={user} onLogout={handleLogout} />
           ) : (
             // Trạng thái chưa login
             <div className="flex gap-2">
